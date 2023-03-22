@@ -1,4 +1,4 @@
-import numpy as np
+import numpy as np  
 from sklearn.linear_model import LinearRegression
 import pandas as pd
 import math
@@ -11,19 +11,19 @@ Y = np.array(Y)
 
 
 def gradient_descent(x, y):
-    m = b = 0
-    n = len(x)
-    learning_rate = 0.0002
-    cost_previous = 0
-    i = 0
+    m = b = 0  # Starting value of m and b from 0 //////// Main equation is y = mx + b where y is our predicted value
+    n = len(x)  # N is the total numbers of x value
+    learning_rate = 0.0002  # It is the maximum learning rate I could found, Others are just increasing the cost
+    cost_previous = 0  # Created to check the last cost value to current value. There will be a point where cost will not decrease anymore
+    i = 0  # For Keeping track of itreation (It is not recommend becaue for loop is faster then while loop)
     while True:
-        y_predicted = m * x + b
-        cost = (1 / n) * sum([val ** 2 for val in (y - y_predicted)])
-        md = -(2 / n) * sum(x * (y - y_predicted))
-        bd = -(2 / n) * sum(y - y_predicted)
-        m = m - learning_rate * md
-        b = b - learning_rate * bd
-        if math.isclose(cost, cost_previous, rel_tol=1e-20):
+        y_predicted = m * x + b  # Calculating the initial value of y
+        cost = (1 / n) * sum([val ** 2 for val in (y - y_predicted)])  #Formula of cost (cost = 1/n * Σ (y - y_predicted)^2)  Here Σ (sigma) is generally used to denote a sum
+        md = -(2 / n) * sum(x * (y - y_predicted))  #Formula of partial derivative of m (d/dx m = - 2/n Σ x( y- y_predicted)  Here Σ (sigma) is generally used to denote a sum
+        bd = -(2 / n) * sum(y - y_predicted)  #Formula of partial derivative of b (d/dx b = - 2/n Σ ( y- y_predicted)  Here Σ (sigma) is generally used to denote a sum
+        m = m - learning_rate * md  # formula of calculating m ( m = m - learning_rate * md)
+        b = b - learning_rate * bd  # formula of calculating b ( b = b - learning_rate * bd)
+        if math.isclose(cost, cost_previous, rel_tol=1e-20):  # Checking if the previous value of cost is euqal to current value of cost
             break
         cost_previous = cost
         i += 1
